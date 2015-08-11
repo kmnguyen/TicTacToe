@@ -1,24 +1,28 @@
 package tictactoe.logic;
 
+import tictactoe.main.Board;
 import tictactoe.main.Player;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 /**
  * Created by Khoi on 8/9/2015.
  */
 public class Logic {
-    int[] X = {1, 145, 289};
-    int[] Y = {0,137, 274};
+    private Map<Integer, Integer> xMap;
+    private Map<Integer, Integer> yMap;
 
-    public void intializeMap(){
-        Map<Integer, Integer> xMap = new HashMap<>();
-        xMap.put(1,0);
+    public Logic(){
+        xMap = new HashMap<>();
+        xMap.put(1  ,0);
+        xMap.put(145,1);
+        xMap.put(289,2);
+
+        yMap = new HashMap<>();
+        xMap.put(278,0);
+        xMap.put(137,1);
+        xMap.put(0  ,2);
     }
-
-
-
 
     public Boolean win(String[][] boardState, Player player){
         String playerSymbol = player.getSymbol().toString();
@@ -62,5 +66,11 @@ public class Logic {
         }
 
         return false;
+    }
+
+    public Boolean updateBoard(Board board, int X, int Y, Player player){
+        String[][] currentBoard = board.getBoard();
+        currentBoard[xMap.get(X)][yMap.get(Y)] = player.getSymbol().toString();
+        return win(currentBoard, player);
     }
 }
