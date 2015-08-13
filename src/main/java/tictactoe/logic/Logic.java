@@ -1,5 +1,6 @@
 package tictactoe.logic;
 
+import tictactoe.actions.Initiator;
 import tictactoe.main.Board;
 import tictactoe.main.Player;
 
@@ -19,9 +20,9 @@ public class Logic {
         xMap.put(289,2);
 
         yMap = new HashMap<>();
-        xMap.put(278,0);
-        xMap.put(137,1);
-        xMap.put(0  ,2);
+        yMap.put(278,0);
+        yMap.put(137,1);
+        yMap.put(0  ,2);
     }
 
     public Boolean win(String[][] boardState, Player player){
@@ -70,7 +71,14 @@ public class Logic {
 
     public Boolean updateBoard(Board board, int X, int Y, Player player){
         String[][] currentBoard = board.getBoard();
-        currentBoard[xMap.get(X)][yMap.get(Y)] = player.getSymbol().toString();
+        currentBoard[Initiator.logic.xMap.get(X)][Initiator.logic.yMap.get(Y)] = player.getSymbol().toString();
+        Initiator.board.setBoard(currentBoard);
+
+        if(win(currentBoard, player)){
+            System.out.println("win");
+        } else {
+            System.out.println("lose");
+        }
         return win(currentBoard, player);
     }
 }

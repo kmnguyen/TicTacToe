@@ -6,10 +6,6 @@ package tictactoe.main;
 public class Board {
     private String[][] board;
 
-    public Board(String[][] board){
-        this.board = board;
-    }
-
     public void setBoard(String[][] board){
         this.board = board;
     }
