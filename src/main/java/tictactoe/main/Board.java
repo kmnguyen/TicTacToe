@@ -1,7 +1,7 @@
 package tictactoe.main;
 
 /**
- * Created by Khoi on 8/11/2015.
+ * @author Khoi Nguyen
  */
 public class Board {
     private String[][] board;

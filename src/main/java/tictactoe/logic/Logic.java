@@ -4,26 +4,10 @@ import tictactoe.actions.Initiator;
 import tictactoe.main.Board;
 import tictactoe.main.Player;
 
-import java.util.*;
-
 /**
- * Created by Khoi on 8/9/2015.
+ * @author Khoi Nguyen
  */
 public class Logic {
-    private Map<Integer, Integer> xMap;
-    private Map<Integer, Integer> yMap;
-
-    public Logic(){
-        xMap = new HashMap<>();
-        xMap.put(1  ,0);
-        xMap.put(145,1);
-        xMap.put(289,2);
-
-        yMap = new HashMap<>();
-        yMap.put(278,0);
-        yMap.put(137,1);
-        yMap.put(0  ,2);
-    }
 
     public Boolean win(String[][] boardState, Player player){
         String playerSymbol = player.getSymbol().toString();
@@ -41,7 +25,7 @@ public class Logic {
                 String rowSymbol = boardState[i][j].toUpperCase(); // Check if symbol is there looping through rows
                 String colSymbol = boardState[j][i].toUpperCase(); // Check if symbol is there looping through col
 
-                if(rowSymbol == playerSymbol){ // Check if row has player's symbol
+                if(rowSymbol.equals(playerSymbol)){ // Check if row has player's symbol
                     rowCount++;
 
                     if (i == j || Math.abs(i - j) == 2){ // Check 2 diagonals
@@ -57,7 +41,7 @@ public class Logic {
                 }
 
 
-                if (colSymbol == playerSymbol){ // Check if col has player's symbol
+                if (colSymbol.equals(playerSymbol)){ // Check if col has player's symbol
                     colCount++;
                 }
             }

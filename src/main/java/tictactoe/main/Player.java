@@ -1,10 +1,9 @@
 package tictactoe.main;
 
-import java.util.List;
-import java.util.Map;
+import tictactoe.actions.Initiator;
 
 /**
- * Created by Khoi on 8/10/2015.
+ * @author Khoi Nguyen
  */
 public class Player {
 
@@ -13,8 +12,6 @@ public class Player {
     }
 
     private Symbol symbol;
-    private Boolean won = false;
-
 
     public Player(Symbol symbol){
         this.symbol = symbol;
@@ -28,19 +25,12 @@ public class Player {
         return symbol;
     }
 
-    public void setWon(Boolean won){
-        this.won = won;
-    }
-
-    public Boolean getWon(){
-        return won;
-    }
-
     public void switchPlayer(){
         if(this.symbol == Symbol.X){
             setSymbol(Symbol.O);
         } else {
             setSymbol(Symbol.X);
         }
+        Initiator.ticTacToeGUI.setPlayer();
     }
 }

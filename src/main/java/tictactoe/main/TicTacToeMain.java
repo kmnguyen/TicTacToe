@@ -1,6 +1,5 @@
 package tictactoe.main;
 
-import tictactoe.TicTacToeGUI.TicTacToeGUI;
 import tictactoe.actions.Initiator;
 
 import javax.swing.*;
@@ -11,10 +10,10 @@ import javax.swing.*;
 
 public class TicTacToeMain extends JFrame{
     public static void main(String[] args)
-    {   String[][] emptyBoard = {{"","",""},{"","",""},{"","",""}};
+    {
+        String[][] emptyBoard = {{"","",""},{"","",""},{"","",""}};
         Initiator.board.setBoard(emptyBoard);
-
-        TicTacToeGUI ticTacToeGUI = new TicTacToeGUI();
-        ticTacToeGUI.setBoard();
+        Initiator.ticTacToeGUI.setUpGameGUI();
+        Initiator.thread.start();
     }
 }

@@ -7,31 +7,24 @@ import java.awt.event.ActionListener;
 /**
  * @Author Khoi Nguyen
  */
-public class Actions  implements ActionListener{
+public class Actions{
 
-    private int X;
-    private int Y;
+    public class gameAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            JButton pressed = (JButton)(actionEvent.getSource());
 
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-        JButton pressed = (JButton)(actionEvent.getSource());
+            int X = (Integer)(pressed.getClientProperty("X"));
+            int Y = (Integer)(pressed.getClientProperty("Y"));
 
-        this.X = (Integer)(pressed.getClientProperty("X"));
-        this.Y = (Integer)(pressed.getClientProperty("Y"));
-
-        if(pressed.getText() == ""){
-            pressed.setText(Initiator.player.getSymbol().toString());
-            if(!Initiator.logic.checkWinner(Initiator.board, this.X, this.Y, Initiator.player)){
-                Initiator.player.switchPlayer();
+            if(pressed.getText() == ""){
+                pressed.setText(Initiator.player.getSymbol().toString());
+                if(!Initiator.logic.checkWinner(Initiator.board, X, Y, Initiator.player)){
+                    Initiator.thread.interrupt();
+                }
             }
         }
     }
 
-    public int getX(){
-        return this.X;
-    }
 
-    public int getY(){
-        return this.Y;
-    }
 }
