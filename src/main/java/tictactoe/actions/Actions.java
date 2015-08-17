@@ -1,8 +1,5 @@
 package tictactoe.actions;
 
-import tictactoe.logic.Logic;
-import tictactoe.main.Player;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,19 +13,18 @@ public class Actions  implements ActionListener{
     private int Y;
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        JButton pressed = (JButton)(e.getSource());
+    public void actionPerformed(ActionEvent actionEvent) {
+        JButton pressed = (JButton)(actionEvent.getSource());
 
-        this.X = pressed.getX();
-        this.Y = pressed.getY();
-
-
+        this.X = (Integer)(pressed.getClientProperty("X"));
+        this.Y = (Integer)(pressed.getClientProperty("Y"));
 
         if(pressed.getText() == ""){
             pressed.setText(Initiator.player.getSymbol().toString());
+            if(!Initiator.logic.checkWinner(Initiator.board, this.X, this.Y, Initiator.player)){
+                Initiator.player.switchPlayer();
+            }
         }
-
-        Initiator.logic.updateBoard(Initiator.board, pressed.getX(), pressed.getY(), Initiator.player);
     }
 
     public int getX(){

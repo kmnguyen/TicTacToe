@@ -33,12 +33,25 @@ public class TicTacToeGUI extends JFrame{
 
     private void setGrid(){
         container.setLayout(new GridLayout(3, 3));
-        JButton[] buttons = new JButton[9];
+        JButton[][] buttons = new JButton[3][3];
 
-        for(JButton button : buttons){
+        /*for(JButton button : buttons){
             button = new JButton();
             button.addActionListener(new Actions());
             container.add(button);
+        }*/
+
+        for(int i = 0; i < buttons.length; i++){
+            for(int j = 0; j < buttons.length; j++){
+                JButton button = new JButton();
+                button.addActionListener(new Actions());
+
+                button.putClientProperty("X", i);
+                button.putClientProperty("Y", j);
+
+                buttons[i][j] = button;
+                container.add(buttons[i][j]);
+            }
         }
     }
 }

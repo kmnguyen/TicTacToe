@@ -9,7 +9,7 @@ import java.util.Map;
 public class Player {
 
     public enum Symbol {
-        X, O;
+        X, O
     }
 
     private Symbol symbol;
@@ -17,6 +17,10 @@ public class Player {
 
 
     public Player(Symbol symbol){
+        this.symbol = symbol;
+    }
+
+    public void setSymbol(Symbol symbol){
         this.symbol = symbol;
     }
 
@@ -30,5 +34,13 @@ public class Player {
 
     public Boolean getWon(){
         return won;
+    }
+
+    public void switchPlayer(){
+        if(this.symbol == Symbol.X){
+            setSymbol(Symbol.O);
+        } else {
+            setSymbol(Symbol.X);
+        }
     }
 }

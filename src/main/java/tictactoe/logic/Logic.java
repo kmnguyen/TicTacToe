@@ -43,17 +43,22 @@ public class Logic {
 
                 if(rowSymbol == playerSymbol){ // Check if row has player's symbol
                     rowCount++;
-                } else if (colSymbol == playerSymbol){ // Check if col has player's symbol
-                    colCount++;
-                } else if (i == j || Math.abs(i - j) == 2){ // Check 2 diagonals
-                    if(i == 1 && j == 1){
-                        diagonal_1++;
-                        diagonal_2++;
-                    } else if(i == j && boardState[i][j].toUpperCase() == player.getSymbol().toString()){
-                        diagonal_1++;
-                    } else if(boardState[i][j].toUpperCase() == player.getSymbol().toString()){
-                        diagonal_2++;
+
+                    if (i == j || Math.abs(i - j) == 2){ // Check 2 diagonals
+                        if(i == 1 && j == 1){
+                            diagonal_1++;
+                            diagonal_2++;
+                        } else if(i == j){
+                            diagonal_1++;
+                        } else {
+                            diagonal_2++;
+                        }
                     }
+                }
+
+
+                if (colSymbol == playerSymbol){ // Check if col has player's symbol
+                    colCount++;
                 }
             }
 
@@ -69,16 +74,17 @@ public class Logic {
         return false;
     }
 
-    public Boolean updateBoard(Board board, int X, int Y, Player player){
+    public Boolean checkWinner(Board board, int X, int Y, Player player){
         String[][] currentBoard = board.getBoard();
-        currentBoard[Initiator.logic.xMap.get(X)][Initiator.logic.yMap.get(Y)] = player.getSymbol().toString();
+        currentBoard[X][Y] = player.getSymbol().toString();
         Initiator.board.setBoard(currentBoard);
 
         if(win(currentBoard, player)){
-            System.out.println("win");
+            System.out.println("[" + X + "," + Y + "] win");
         } else {
-            System.out.println("lose");
+            System.out.println("[" + X + "," + Y + "] lose");
         }
+
         return win(currentBoard, player);
     }
 }
