@@ -1,5 +1,7 @@
 package tictactoe.TicTacToeGUI;
 
+import tictactoe.Thread.*;
+import tictactoe.Thread.Timer;
 import tictactoe.actions.Actions;
 import tictactoe.actions.Initiator;
 
@@ -38,7 +40,7 @@ public class TicTacToeGUI extends JFrame{
         timeRemaining = new JLabel("Time Remaining:", SwingConstants.CENTER);
 
         clear = new JButton("CLEAR BOARD");
-        clear.addActionListener(e -> Initiator.thread.interrupt());
+        clear.addActionListener(e -> {Initiator.thread.interrupt(); setClear();});
 
         player = new JLabel("Player: ", SwingConstants.CENTER);
         setPlayer();
@@ -73,11 +75,14 @@ public class TicTacToeGUI extends JFrame{
     private void setClear(){
         for(int i = 0; i < jButtons.length; i++){
             for(int j = 0; j < jButtons.length; j++){
-                JButton button = new JButton();
+                JButton button =jButtons[i][j];
                 button.setText("");
                 setPlayer();
             }
         }
+
+        Initiator.thread = new Thread(new Timer());
+        Initiator.thread.start();
     }
 
     public void setTimeRemaining(int time){
@@ -86,5 +91,17 @@ public class TicTacToeGUI extends JFrame{
 
     public void setPlayer(){
         player.setText("Player: " + Initiator.player.getSymbol().toString());
+    }
+
+    public void displayWinner(){
+        player.setText("Player " + Initiator.player.getSymbol().toString() + " Won");
+    }
+
+    public void displayDraw(){
+        player.setText("DRAW");
+    }
+
+    public JButton[][] getBoardUI(){
+        return jButtons;
     }
 }

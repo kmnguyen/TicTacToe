@@ -16,17 +16,14 @@ public class Timer implements java.lang.Runnable{
 
     private void countDown(){
         int timer = 11;
-
-        while(timer > 0 && isRunning){
+        while(timer > 0 && isRunning && !Thread.interrupted()){
             try{
                 timer--;
                 Thread.sleep(1000L);
             } catch (InterruptedException exception){
-                System.out.println("interrupted");
                 isRunning = false;
             }
             Initiator.ticTacToeGUI.setTimeRemaining(timer);
-            System.out.println(timer);
         }
 
         restartTimer();
@@ -37,7 +34,7 @@ public class Timer implements java.lang.Runnable{
         startTimer();
     }
 
-    private void startTimer(){
+    public void startTimer(){
         Initiator.thread = new Thread(new Timer());
         Initiator.thread.start();
     }

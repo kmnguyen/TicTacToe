@@ -11,8 +11,7 @@ import javax.swing.*;
 public class TicTacToeMain extends JFrame{
     public static void main(String[] args)
     {
-        String[][] emptyBoard = {{"","",""},{"","",""},{"","",""}};
-        Initiator.board.setBoard(emptyBoard);
+        Initiator.board.setEmptyBoard();
         Initiator.ticTacToeGUI.setUpGameGUI();
         Initiator.thread.start();
     }
