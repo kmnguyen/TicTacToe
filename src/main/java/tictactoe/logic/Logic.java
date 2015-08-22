@@ -9,25 +9,42 @@ public class Logic {
     private boolean win = false;
     private boolean draw = false;
 
+    /**
+     * Check if any player wins
+     *
+     * @param X X location of the JButton that was pressed
+     * @param Y Y location of the JButton that was pressed
+     * @return boolean of whether there is a winner
+     */
     public Boolean checkWinner(int X, int Y){
-        Initiator.board.updateBoard(X, Y);
+        Initiator.board.updateBoard(X, Y); // Update Board with JButton's X and Y location
 
         return win();
     }
 
+    /**
+     * Check the game is draw
+     *
+     * @param X X location of the JButton that was pressed
+     * @param Y Y location of the JButton that was pressed
+     * @return boolean of whether the game is draw
+     */
     public Boolean checkDraw(int X, int Y){
-        Initiator.board.updateBoard(X, Y);
-        String[][] currentBoard = Initiator.board.getBoard();
+        Initiator.board.updateBoard(X, Y); // Update Board with JButton's X and Y location
+        String[][] currentBoard = Initiator.board.getBoard(); // Get current Board
+
         int numberOfBlanks = 9;
 
+        // Check all JButtons to see if there is a draw
         for(int i = 0; i < currentBoard.length; i++){
             for(int j = 0; j < currentBoard.length; j++){
-                if(currentBoard[i][j] != ""){
+                if(currentBoard[i][j] != ""){ // If JButton's text is not blank then reduce that number from 9
                     numberOfBlanks--;
                 }
             }
         }
 
+        // If all JButtons are clicked and there is no winner then it's a draw
         if(numberOfBlanks == 0){
             return true;
         } else {
@@ -35,20 +52,31 @@ public class Logic {
         }
     }
 
+    /**
+     * If there is a winner then reset Board and display winner
+     */
     public void hasWinner(){
         Initiator.board.setEmptyBoard();
         Initiator.thread.stop();
         Initiator.GUI.displayWinner();
-        this.draw = true;
+        this.win = true;
     }
 
+    /**
+     * If there is a draw then reset Board and display draw
+     */
     public void hasDraw(){
         Initiator.board.setEmptyBoard();
         Initiator.thread.stop();
         Initiator.GUI.displayDraw();
-        this.win = true;
+        this.draw = true;
     }
 
+    /**
+     * Check if game is over
+     *
+     * @return whether or not game is over
+     */
     public Boolean gameOver(){
         if(this.draw || this.win){
             return true;
@@ -57,14 +85,24 @@ public class Logic {
         }
     }
 
+    /**
+     * Reset draw and win to false like in the beginning
+     */
     public void reset(){
         this.draw = false;
         this.win = false;
     }
 
+    /**
+     * Check if there is a winner aka the main logic of tic tac toe
+     *
+     * @return boolean if anyone wins or not
+     */
     public Boolean win(){
         String playerSymbol = Initiator.player.getSymbol().toString();
         String[][] boardState = Initiator.board.getBoard();
+
+        // Counter if there are 3 in a row for the 2 diagonals
         int diagonal_1 = 0;
         int diagonal_2 = 0;
 

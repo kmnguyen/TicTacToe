@@ -9,40 +9,32 @@ import java.awt.event.ActionListener;
 /**
  * @Author Khoi Nguyen
  */
-public class JButtonActions {
 
-    private boolean active = true;
+/**
+ * Implement what to do when a button is pressed
+ */
+public class JButtonActions implements ActionListener {
 
-    public class gameAction implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
 
-        @Override
-        public void actionPerformed(ActionEvent actionEvent) {
-            if(active){
-                JButton pressed = (JButton)(actionEvent.getSource());
+        JButton pressed = (JButton)(actionEvent.getSource()); // Determine which JButton is pressed
 
-                int X = (Integer)(pressed.getClientProperty("X"));
-                int Y = (Integer)(pressed.getClientProperty("Y"));
+        // Get JButton's X and Y
+        int X = (Integer)(pressed.getClientProperty("X"));
+        int Y = (Integer)(pressed.getClientProperty("Y"));
 
-                if(pressed.getText() == "" && !Initiator.logic.gameOver()){
-                    pressed.setText(Initiator.player.getSymbol().toString());
-                    if(Initiator.logic.checkDraw(X, Y)){
-                        Initiator.logic.hasDraw();
-                        //setDraw(true);
-                    } else {
-                        if(!Initiator.logic.checkWinner(X, Y)){
+        if(pressed.getText() == "" && !Initiator.logic.gameOver()){ // If game is not over and the JButton's text is blank
+            // Display player's symbol
+            pressed.setText(Initiator.player.getSymbol().toString());
 
-                            Initiator.thread.interrupt();
-                        } else {
-                            Initiator.logic.hasWinner();
-                            //setWin(true);
-                        }
-                    }
-                }
+            if(Initiator.logic.checkWinner(X, Y)){ // If there is a winner
+                Initiator.logic.hasWinner();
+            } else if(Initiator.logic.checkDraw(X, Y)){ // If there is a draw
+                Initiator.logic.hasDraw();
+            } else { // If there is no winner and no draw then restart timer
+                Initiator.thread.interrupt();
             }
         }
     }
-
-//    public void setActive(boolean active){
-//        this.active = active;
-//    }
 }
