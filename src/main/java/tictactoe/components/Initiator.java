@@ -1,10 +1,8 @@
-package tictactoe.actions;
+package tictactoe.components;
 
-import tictactoe.Thread.Timer;
-import tictactoe.TicTacToeGUI.TicTacToeGUI;
+import tictactoe.timer.Timer;
+import tictactoe.gui.GUI;
 import tictactoe.logic.Logic;
-import tictactoe.main.Board;
-import tictactoe.main.Player;
 
 /**
  * @author Khoi Nguyen
@@ -14,6 +12,6 @@ public class Initiator {
     public static Logic logic = new Logic();
     public static Player player = new Player(Player.Symbol.O);
     public static Thread thread = new Thread(new Timer());
-    public static TicTacToeGUI ticTacToeGUI = new TicTacToeGUI();
+    public static GUI GUI = new GUI();
 
 }

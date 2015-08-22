@@ -1,16 +1,66 @@
 package tictactoe.logic;
 
-import org.omg.CORBA.INITIALIZE;
-import tictactoe.actions.Initiator;
-import tictactoe.main.Board;
-import tictactoe.main.Player;
-
-import javax.swing.*;
+import tictactoe.components.Initiator;
 
 /**
  * @author Khoi Nguyen
  */
 public class Logic {
+    private boolean win = false;
+    private boolean draw = false;
+
+    public Boolean checkWinner(int X, int Y){
+        Initiator.board.updateBoard(X, Y);
+
+        return win();
+    }
+
+    public Boolean checkDraw(int X, int Y){
+        Initiator.board.updateBoard(X, Y);
+        String[][] currentBoard = Initiator.board.getBoard();
+        int numberOfBlanks = 9;
+
+        for(int i = 0; i < currentBoard.length; i++){
+            for(int j = 0; j < currentBoard.length; j++){
+                if(currentBoard[i][j] != ""){
+                    numberOfBlanks--;
+                }
+            }
+        }
+
+        if(numberOfBlanks == 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void hasWinner(){
+        Initiator.board.setEmptyBoard();
+        Initiator.thread.stop();
+        Initiator.GUI.displayWinner();
+        this.draw = true;
+    }
+
+    public void hasDraw(){
+        Initiator.board.setEmptyBoard();
+        Initiator.thread.stop();
+        Initiator.GUI.displayDraw();
+        this.win = true;
+    }
+
+    public Boolean gameOver(){
+        if(this.draw || this.win){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void reset(){
+        this.draw = false;
+        this.win = false;
+    }
 
     public Boolean win(){
         String playerSymbol = Initiator.player.getSymbol().toString();
@@ -60,56 +110,5 @@ public class Logic {
         }
 
         return false;
-    }
-
-    public Boolean checkWinner(int X, int Y){
-        Initiator.board.updateBoard(X, Y);
-
-        return win();
-    }
-
-    public Boolean checkDraw(int X, int Y){
-        Initiator.board.updateBoard(X, Y);
-        String[][] currentBoard = Initiator.board.getBoard();
-        int numberOfBlanks = 9;
-
-        for(int i = 0; i < currentBoard.length; i++){
-            for(int j = 0; j < currentBoard.length; j++){
-                if(currentBoard[i][j] != ""){
-                    numberOfBlanks--;
-                }
-            }
-        }
-
-        if(numberOfBlanks == 0){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public void hasWinner(){
-        Initiator.board.setEmptyBoard();
-        Initiator.thread.stop();
-
-        Initiator.ticTacToeGUI.displayWinner();
-
-    }
-
-    public void hasDraw(){
-        Initiator.board.setEmptyBoard();
-        Initiator.thread.stop();
-        Initiator.ticTacToeGUI.displayDraw();
-    }
-
-    private void gameOver(){
-        JButton[][] jButtons = Initiator.ticTacToeGUI.getBoardUI();
-        for(int i = 0; i < jButtons.length; i++){
-            for(int j = 0; j < jButtons.length; j++){
-                JButton button =jButtons[i][j];
-                button.setText("");
-                setPlayer();
-            }
-        }
     }
 }

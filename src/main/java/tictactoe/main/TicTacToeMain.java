@@ -1,6 +1,6 @@
 package tictactoe.main;
 
-import tictactoe.actions.Initiator;
+import tictactoe.components.Initiator;
 
 import javax.swing.*;
 
@@ -12,7 +12,7 @@ public class TicTacToeMain extends JFrame{
     public static void main(String[] args)
     {
         Initiator.board.setEmptyBoard();
-        Initiator.ticTacToeGUI.setUpGameGUI();
+        Initiator.GUI.setUpGameGUI();
         Initiator.thread.start();
     }
 }

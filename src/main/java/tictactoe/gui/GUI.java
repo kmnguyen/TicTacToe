@@ -1,9 +1,7 @@
-package tictactoe.TicTacToeGUI;
+package tictactoe.gui;
 
-import tictactoe.Thread.*;
-import tictactoe.Thread.Timer;
-import tictactoe.actions.Actions;
-import tictactoe.actions.Initiator;
+import tictactoe.timer.Timer;
+import tictactoe.components.Initiator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +10,7 @@ import java.awt.*;
  * @author Khoi Nguyen
  */
 
-public class TicTacToeGUI extends JFrame{
+public class GUI extends JFrame{
     private static final int WIDTH=450;
     private static final int HEIGHT=600;
     private JLabel timeRemaining;
@@ -22,7 +20,7 @@ public class TicTacToeGUI extends JFrame{
 
     private Container container;
 
-    public TicTacToeGUI(){
+    public GUI(){
         // Initialize container
         container = getContentPane();
 
@@ -61,7 +59,7 @@ public class TicTacToeGUI extends JFrame{
         for(int i = 0; i < jButtons.length; i++){
             for(int j = 0; j < jButtons.length; j++){
                 JButton button = new JButton();
-                button.addActionListener((new Actions()).new gameAction());
+                button.addActionListener((new JButtonActions()).new gameAction());
 
                 button.putClientProperty("X", i);
                 button.putClientProperty("Y", j);
@@ -80,6 +78,7 @@ public class TicTacToeGUI extends JFrame{
                 setPlayer();
             }
         }
+        Initiator.logic.reset();
 
         Initiator.thread = new Thread(new Timer());
         Initiator.thread.start();

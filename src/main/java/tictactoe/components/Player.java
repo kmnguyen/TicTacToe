@@ -1,6 +1,4 @@
-package tictactoe.main;
-
-import tictactoe.actions.Initiator;
+package tictactoe.components;
 
 /**
  * @author Khoi Nguyen
@@ -31,6 +29,6 @@ public class Player {
         } else {
             setSymbol(Symbol.X);
         }
-        Initiator.ticTacToeGUI.setPlayer();
+        Initiator.GUI.setPlayer();
     }
 }

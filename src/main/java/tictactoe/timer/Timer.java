@@ -1,6 +1,6 @@
-package tictactoe.Thread;
+package tictactoe.timer;
 
-import tictactoe.actions.Initiator;
+import tictactoe.components.Initiator;
 
 /**
  * @author Khoi Nguyen
@@ -23,7 +23,7 @@ public class Timer implements java.lang.Runnable{
             } catch (InterruptedException exception){
                 isRunning = false;
             }
-            Initiator.ticTacToeGUI.setTimeRemaining(timer);
+            Initiator.GUI.setTimeRemaining(timer);
         }
 
         restartTimer();
